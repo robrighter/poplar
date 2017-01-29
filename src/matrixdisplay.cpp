@@ -59,7 +59,7 @@ boolean bitchar0[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
-                          
+
 boolean bitchar1[5][3] = {{0,1,0},
                           {0,1,0},
                           {0,1,0},
@@ -158,7 +158,7 @@ boolean bitcharF[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,0,0}};
 
- 
+
 boolean bitcharG[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,1,1},
@@ -180,14 +180,14 @@ boolean bitcharI[5][3] = {{1,1,1},
                           {0,1,0},
                           {1,1,1}};
 
- 
+
 boolean bitcharJ[5][3] = {{0,0,1},
                           {0,0,1},
                           {0,0,1},
                           {1,0,1},
                           {1,1,1}};
 
-                         
+
 
 boolean bitcharK[5][3] = {{1,0,1},
                           {1,1,0},
@@ -195,7 +195,7 @@ boolean bitcharK[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,0,1}};
 
- 
+
 boolean bitcharL[5][3] = {{1,0,0},
                           {1,0,0},
                           {1,0,0},
@@ -211,7 +211,7 @@ boolean bitcharM[5][3] = {{1,0,1},
                           {1,0,1}};
 
 
- 
+
 boolean bitcharN[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,1,1},
@@ -262,7 +262,7 @@ boolean bitcharU[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
-                          
+
 
 boolean bitcharV[5][3] = {{1,0,1},
                           {1,0,1},
@@ -303,12 +303,12 @@ boolean bitcharSPACE[5][3] = {{0,0,0},
                           {0,0,0},
                           {0,0,0}};
 
-                          
+
 void matrixDisplaySetup(){
 
   pinMode(OE_PIN, OUTPUT);
   digitalWrite(OE_PIN, HIGH);
-  
+
   for(int i=0;i<NUMBER_OF_DRIVERS; i++){
     driver[i].begin();
     driver[i].setPWMFreq(60); // Analog servos run at ~60 Hz updates
@@ -316,9 +316,9 @@ void matrixDisplaySetup(){
     Serial.println(i);
   }
   //yield();
-  
- 
-   
+
+
+
 }
 
 
@@ -338,18 +338,18 @@ void getPDMLocationForCoords(uint8_t x, uint8_t y, struct PDMLocation *outvar){
     localx = x-8;
   }
   else{//x<16
-    outvar->driverIndex = IGNORE_DRIVER; //not going to have 5 hooked up for now  
+    outvar->driverIndex = IGNORE_DRIVER; //not going to have 5 hooked up for now
     localx = x-12;
   }
   localy = (y<4)?y:y-4;
   //translate localx and localy to a servo number 0-15
-  outvar->servoIndex = ((4*(localy+1)) - (4-(localx+1)))  -1; 
+  outvar->servoIndex = ((4*(localy+1)) - (4-(localx+1)))  -1;
 }
 
 boolean transposePixel(uint8_t x,uint8_t y){
   if( (x>=SCREEN_WIDTH) || (y>=SCREEN_HEIGHT) ){
     //pixel is off the screen so just return false
-    return false;  
+    return false;
   }
   if(futureScreenMatrix[y][x] == existingScreenMatrix[y][x]){
     return false;
@@ -375,13 +375,13 @@ void test(){
   }
   delay(2000);
   digitalWrite(OE_PIN, HIGH);
-  
+
 }
 
 void updateDisplay(bool force){
   //loop through the controllers and have each one update their quadrant
-  
-  uint8_t numChanged = 0; 
+
+  uint8_t numChanged = 0;
   for(uint8_t x=0; x<16; x++){
     for(uint8_t y=0; y<8; y++){
       bool didChange = transposePixel(x,y);
@@ -390,36 +390,36 @@ void updateDisplay(bool force){
         getPDMLocationForCoords(x, y, &outvar);
         int displayValue = SERVOMIN;
         if(futureScreenMatrix[y][x] == 0){
-          displayValue =  SERVOMIN; 
+          displayValue =  SERVOMIN;
         }
         else if(futureScreenMatrix[y][x] == 1){
-          displayValue =  SERVOMID; 
+          displayValue =  SERVOMID;
         }
         else if(futureScreenMatrix[y][x] > 1){
-          displayValue =  SERVOMAX; 
+          displayValue =  SERVOMAX;
         }
         numChanged++;
         if(!force && numChanged > 15){
           //Slow things down so we dont burn out the controller (leaned this the hard way)
           delay(5);
         }
-        if( (numChanged>0) && ((numChanged % 10)== 0) ){
-            delay(500);
-        }
+        //if( (numChanged>0) && ((numChanged % 10)== 0) ){
+        //    delay(500);
+        //}
         if(outvar.driverIndex != IGNORE_DRIVER){
           digitalWrite(OE_PIN, LOW);
           driver[outvar.driverIndex].setPWM(outvar.servoIndex, 0, displayValue);
         }
-        
+
       }
-    }     
+    }
   }
   delay(70*((numChanged/5)+2));
   digitalWrite(OE_PIN, HIGH);
 }
 
 void display(){
-  updateDisplay(false); 
+  updateDisplay(false);
 }
 
 
@@ -428,158 +428,158 @@ void displayChar(uint8_t x, uint8_t y, char thechar){
   boolean (*charmap)[3];
 
   if( thechar == 48 ){ //0
-    charmap = bitchar0;  
+    charmap = bitchar0;
   }
   if( thechar == 49 ){ //1
-    charmap = bitchar1;   
+    charmap = bitchar1;
   }
 
   if( thechar == 50 ){ //2
-    charmap = bitchar2; 
+    charmap = bitchar2;
   }
   if( thechar == 51 ){ //3
-    charmap = bitchar3;   
+    charmap = bitchar3;
   }
   if( thechar == 52 ){ //4
-    charmap = bitchar4;  
+    charmap = bitchar4;
   }
   if( thechar == 53 ){ //5
-    charmap = bitchar5;   
+    charmap = bitchar5;
   }
   if( thechar == 54 ){ //6
-    charmap = bitchar6;   
+    charmap = bitchar6;
   }
   if( thechar == 55 ){ //7
-    charmap = bitchar7;   
+    charmap = bitchar7;
   }
   if( thechar == 56 ){ //8
-    charmap = bitchar8;   
+    charmap = bitchar8;
   }
   if( thechar == 57 ){ //9
-    charmap = bitchar9; 
+    charmap = bitchar9;
   }
   if( thechar == 65 || thechar == 97  ){
-    charmap = bitcharA; 
+    charmap = bitcharA;
   }
 
   if( thechar == 66 || thechar == 98  ){
-    charmap = bitcharB; 
+    charmap = bitcharB;
   }
 
   if( thechar == 67 || thechar == 99  ){
-    charmap = bitcharC; 
+    charmap = bitcharC;
   }
 
   if( thechar == 68 || thechar == 100  ){
-    charmap = bitcharD; 
+    charmap = bitcharD;
   }
 
   if( thechar == 69 || thechar == 101  ){
-    charmap = bitcharE; 
+    charmap = bitcharE;
   }
 
   if( thechar == 70 || thechar == 102  ){
-    charmap = bitcharF; 
+    charmap = bitcharF;
   }
 
   if( thechar == 71 || thechar == 103  ){
-    charmap = bitcharG; 
+    charmap = bitcharG;
   }
 
   if( thechar == 72 || thechar == 104  ){
-    charmap = bitcharH; 
+    charmap = bitcharH;
   }
 
   if( thechar == 73 || thechar == 105  ){
-    charmap = bitcharI; 
+    charmap = bitcharI;
   }
 
   if( thechar == 74 || thechar == 106  ){
-    charmap = bitcharJ; 
+    charmap = bitcharJ;
   }
 
   if( thechar == 75 || thechar == 107  ){
-    charmap = bitcharK; 
+    charmap = bitcharK;
   }
 
   if( thechar == 76 || thechar == 108  ){
-    charmap = bitcharL; 
+    charmap = bitcharL;
   }
-  
+
 
   if( thechar == 77 || thechar == 109  ){
-    charmap = bitcharM; 
+    charmap = bitcharM;
   }
-  
+
 
   if( thechar == 78 || thechar == 110  ){
-    charmap = bitcharN; 
+    charmap = bitcharN;
   }
-  
+
 
   if( thechar == 79 || thechar == 111  ){
-    charmap = bitcharO; 
+    charmap = bitcharO;
   }
-  
+
 
   if( thechar == 80 || thechar == 112  ){
-    charmap = bitcharP; 
+    charmap = bitcharP;
   }
-  
+
 
   if( thechar == 81 || thechar == 113  ){
-    charmap = bitcharQ; 
-  }
-  
-  if( thechar == 82 || thechar == 114  ){
-    charmap = bitcharR; 
-  }
-  
-  
-  if( thechar == 83 || thechar == 115  ){
-    charmap = bitcharS; 
-  }
-  
-  
-  if( thechar == 84 || thechar == 116  ){
-    charmap = bitcharT; 
+    charmap = bitcharQ;
   }
 
-  
-  if( thechar == 85 || thechar == 117  ){
-    charmap = bitcharU; 
+  if( thechar == 82 || thechar == 114  ){
+    charmap = bitcharR;
   }
-  
+
+
+  if( thechar == 83 || thechar == 115  ){
+    charmap = bitcharS;
+  }
+
+
+  if( thechar == 84 || thechar == 116  ){
+    charmap = bitcharT;
+  }
+
+
+  if( thechar == 85 || thechar == 117  ){
+    charmap = bitcharU;
+  }
+
 
   if( thechar == 86 || thechar == 118  ){
-    charmap = bitcharV; 
-  } 
+    charmap = bitcharV;
+  }
 
-  
+
   if( thechar == 87 || thechar == 119  ){
-    charmap = bitcharW; 
-  } 
+    charmap = bitcharW;
+  }
 
-  
+
   if( thechar == 88 || thechar == 120  ){
-    charmap = bitcharX; 
+    charmap = bitcharX;
   }
 
-  
+
   if( thechar == 89 || thechar == 121  ){
-    charmap = bitcharY; 
+    charmap = bitcharY;
   }
-  
-  
+
+
   if( thechar == 90 || thechar == 122  ){
-    charmap = bitcharZ; 
+    charmap = bitcharZ;
   }
 
     if( thechar == 32 ){
-    charmap = bitcharSPACE; 
+    charmap = bitcharSPACE;
   }
-  
-  
+
+
   for(int cy=0; cy<5; cy++){
     for(int cx=0; cx<3; cx++){
       setPixel(x+cx,y+cy, charmap[cy][cx] ? 2 : 0);
@@ -601,7 +601,7 @@ void displayString(uint8_t x, uint8_t y, String theString){
     Serial.print(" y=");
     Serial.print(y);
     Serial.print("\n");
-    xOffset+=4;  
+    xOffset+=4;
   }
 }
 

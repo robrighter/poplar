@@ -54,7 +54,7 @@ void countDown(int top, int secondsdelay){
 }
 
 void displayClock(){
-    displayString(1,1,Time.format(Time.now(), "%i:%M%"));//"%I:%M%p"
+    displayString(1,1,Time.format(Time.now(), "%M"));//"%I:%M%p"
 }
 
 
