@@ -1,15 +1,38 @@
 // This #include statement was automatically added by the Particle IDE.
 #include "matrixdisplay.h"
 
-int8_t ballLocation[2] = {1,2};
+int8_t ballLocation[2] = {0,0};
 int8_t ballVector[2] = {1,-1};
+
+boolean moveBall2(){
+  bool moveY = false;
+  if(ballLocation[0]>11){
+    ballVector[0] = -1;
+    moveY=true;
+  }
+  else if(ballLocation[0]<0){
+    ballVector[0] = 1;
+    moveY=true;
+  }
+  ballLocation[0]+=ballVector[0];
+
+  if(ballLocation[1]>6){
+    ballVector[1] = -1;
+  }
+  if(ballLocation[1]<1){
+    ballVector[1] = 1;
+  }
+  if(moveY){
+    ballLocation[1]+=ballVector[1];
+  }
+}
 
 boolean moveBall(){
   ballLocation[0] = ballLocation[0] + ballVector[0];
   ballLocation[1] = ballLocation[1] + ballVector[1];
-  if(ballLocation[0]>6){
+  if(ballLocation[0]>11){
     //hit the right wall
-    ballLocation[0] = 6;
+    ballLocation[0] = 11;
     ballVector[0] = -1;
   }
   if(ballLocation[0]<0){
@@ -32,8 +55,8 @@ boolean moveBall(){
 }
 
 void drawTheball(){
-  for(byte i=0;i<4;i++){
-    for(byte t=0;t<4;t++){
+  for(byte i=0;i<1;i++){
+    for(byte t=0;t<1;t++){
         setPixel(ballLocation[0]+i,ballLocation[1]+t,2);
     }
   }
@@ -54,7 +77,7 @@ void countDown(int top, int secondsdelay){
 }
 
 void displayClock(){
-    displayString(1,1,Time.format(Time.now(), "%M"));//"%I:%M%p"
+    displayString(1,1,Time.format(Time.now(), "%I%M"));//"%I:%M%p"
 }
 
 
@@ -72,12 +95,12 @@ void loop() {
 
   clearScreen(false);
 
-  //countDown(70, 1);
-  //moveBall();
-  //drawTheball();
-  displayClock();
+  //countDown(700, 1);
+  moveBall2();
+  drawTheball();
+  //displayClock();
   display();
-  delay(5000);
+  delay(100);
   //scrollText("HI");
   //delay(3000);
 }
