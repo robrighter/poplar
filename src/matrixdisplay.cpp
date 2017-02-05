@@ -346,31 +346,35 @@ void MatrixDisplay::updateDisplay(bool force){
         else if(futureScreenMatrix[y][x] > 1){
           displayValue =  SERVOMAX;
         }
-        numChanged++;
-        if(!force && numChanged > 15){
-          //Slow things down so we dont burn out the controller (leaned this the hard way)
-          delay(5);
-        }
-        //if( (numChanged>0) && ((numChanged % 10)== 0) ){
-        //    delay(500);
-        //}
         if(outvar.driverIndex != IGNORE_DRIVER){
           digitalWrite(OE_PIN, LOW);
           driver[outvar.driverIndex].setPWM(outvar.servoIndex, 0, displayValue);
+          numChanged++;
+          if((numChanged % 10) == 0){
+              //after you update 10 wait a bit so we dont burn out the controllers
+              delay(BATCH_DELAY_MILLIS);
+          }
         }
-
       }
     }
   }
-  delay(70*((numChanged/5)+2));
+  if(numChanged == 0){
+    return;
+  }
+  if((numChanged%10) > 5){
+    //if we have a few more servos updated since our last batch of 10 wait a bit
+    delay(BATCH_DELAY_MILLIS);
+  }
+  else{
+    //catch all delay in case somebody loops on single pixel display updates
+    delay(BATCH_DELAY_MILLIS/2);
+  }
   digitalWrite(OE_PIN, HIGH);
 }
 
 void MatrixDisplay::display(){
   updateDisplay(false);
 }
-
-
 
 void MatrixDisplay::displayChar(uint8_t x, uint8_t y, char thechar){
   const boolean (*charmap)[3];
@@ -537,19 +541,9 @@ void MatrixDisplay::displayChar(uint8_t x, uint8_t y, char thechar){
 
 void MatrixDisplay::displayString(uint8_t x, uint8_t y, String theString){
   uint8_t xOffset = 0;
-  Serial.print("About to print string: "+theString);
-  Serial.print("length is: ");
-  Serial.print(theString.length());
-  Serial.print("\n\n");
   for(uint8_t i=0; i<theString.length(); i++){
     displayChar(x+xOffset, y, theString.charAt(i));
-    Serial.print(theString.charAt(i));
-    Serial.print(" x=");
-    Serial.print((x+xOffset));
-    Serial.print(" y=");
-    Serial.print(y);
-    Serial.print("\n");
-    xOffset+=4;
+    xOffset+= ((theString.charAt(i)=='1')?3:4);
   }
 }
 

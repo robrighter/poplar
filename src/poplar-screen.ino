@@ -97,11 +97,11 @@ void loop() {
 
   md.clearScreen(false);
 
-  countDown(700, 3);
+  //countDown(100, 3);
   //moveBall2();
   //drawTheball();
-  //displayClock();
-  //md.display();
+  displayClock();
+  md.display();
   delay(1000);
   //md.scrollText("HI");
   //delay(3000);
