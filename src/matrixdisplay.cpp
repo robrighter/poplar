@@ -1,121 +1,69 @@
 #include "matrixdisplay.h"
-#include <Adafruit_PWMServoDriver.h>
 
-#define SCREEN_WIDTH 16
-#define SCREEN_HEIGHT 8
+MatrixDisplay::MatrixDisplay(){}
 
-#define CHAR_WIDTH 14
-
-#define SERVOMIN  172// this is the 'minimum' pulse length count (out of 4096)
-#define SERVOMAX 410 // this is the 'maximum' pulse length count (out of 4096)
-#define SERVOMID 291
-#define NUMBER_OF_DRIVERS 8
-
-#define OE_PIN 4
-#define IGNORE_DRIVER 55
-
-typedef struct PWMLocation PWMLocation;
-struct PDMLocation {
-  uint8_t driverIndex;
-  uint8_t servoIndex;
-};
-
-Adafruit_PWMServoDriver driver[NUMBER_OF_DRIVERS] =  {
-  Adafruit_PWMServoDriver(0x40),
-  Adafruit_PWMServoDriver(0x41),
-  Adafruit_PWMServoDriver(0x42),
-  Adafruit_PWMServoDriver(0x43),
-  Adafruit_PWMServoDriver(0x44),
-  Adafruit_PWMServoDriver(0x45),
-  Adafruit_PWMServoDriver(0x46),
-  Adafruit_PWMServoDriver(0x47)
-};
-
-uint8_t existingScreenMatrix[8][16] = {
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-};
-
-
-uint8_t futureScreenMatrix[8][16] = {
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-};
-
-boolean bitchar0[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar0[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
 
-boolean bitchar1[5][3] = {{0,1,0},
+const boolean MatrixDisplay::bitchar1[5][3] = {{0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0}};
 
-boolean bitchar2[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar2[5][3] = {{1,1,1},
                           {0,0,1},
                           {1,1,1},
                           {1,0,0},
                           {1,1,1}};
 
-boolean bitchar3[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar3[5][3] = {{1,1,1},
                           {0,0,1},
                           {1,1,1},
                           {0,0,1},
                           {1,1,1}};
 
 
-boolean bitchar4[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitchar4[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,1,1},
                           {0,0,1},
                           {0,0,1}};
 
-boolean bitchar5[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar5[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,1,1},
                           {0,0,1},
                           {1,1,1}};
 
-boolean bitchar6[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar6[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,1,1},
                           {1,0,1},
                           {1,1,1}};
 
-boolean bitchar7[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar7[5][3] = {{1,1,1},
                           {0,0,1},
                           {0,0,1},
                           {0,0,1},
                           {0,0,1}};
 
-boolean bitchar8[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar8[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,1,1},
                           {1,0,1},
                           {1,1,1}};
 
-boolean bitchar9[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar9[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,1,1},
                           {0,0,1},
                           {0,0,1}};
 
-boolean bitcharA[5][3] = {{0,1,0},
+const boolean MatrixDisplay::bitcharA[5][3] = {{0,1,0},
                           {1,0,1},
                           {1,1,1},
                           {1,0,1},
@@ -123,21 +71,21 @@ boolean bitcharA[5][3] = {{0,1,0},
 
 
 
-boolean bitcharB[5][3] = {{1,1,0},
+const boolean MatrixDisplay::bitcharB[5][3] = {{1,1,0},
                           {1,0,1},
                           {1,1,1},
                           {1,0,1},
                           {1,1,1}};
 
 
-boolean bitcharC[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharC[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,0,0},
                           {1,0,0},
                           {1,1,1}};
 
 
-boolean bitcharD[5][3] = {{1,1,0},
+const boolean MatrixDisplay::bitcharD[5][3] = {{1,1,0},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
@@ -145,28 +93,28 @@ boolean bitcharD[5][3] = {{1,1,0},
 
 
 
-boolean bitcharE[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharE[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,1,0},
                           {1,0,0},
                           {1,1,1}};
 
 
-boolean bitcharF[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharF[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,1,1},
                           {1,0,0},
                           {1,0,0}};
 
 
-boolean bitcharG[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharG[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,1,1},
                           {1,0,1},
                           {1,1,1}};
 
 
-boolean bitcharH[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharH[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,1,1},
                           {1,0,1},
@@ -174,14 +122,14 @@ boolean bitcharH[5][3] = {{1,0,1},
 
 
 
-boolean bitcharI[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharI[5][3] = {{1,1,1},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {1,1,1}};
 
 
-boolean bitcharJ[5][3] = {{0,0,1},
+const boolean MatrixDisplay::bitcharJ[5][3] = {{0,0,1},
                           {0,0,1},
                           {0,0,1},
                           {1,0,1},
@@ -189,14 +137,14 @@ boolean bitcharJ[5][3] = {{0,0,1},
 
 
 
-boolean bitcharK[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharK[5][3] = {{1,0,1},
                           {1,1,0},
                           {1,1,0},
                           {1,0,1},
                           {1,0,1}};
 
 
-boolean bitcharL[5][3] = {{1,0,0},
+const boolean MatrixDisplay::bitcharL[5][3] = {{1,0,0},
                           {1,0,0},
                           {1,0,0},
                           {1,0,0},
@@ -204,7 +152,7 @@ boolean bitcharL[5][3] = {{1,0,0},
 
 
 
-boolean bitcharM[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharM[5][3] = {{1,0,1},
                           {1,1,1},
                           {1,0,1},
                           {1,0,1},
@@ -212,99 +160,101 @@ boolean bitcharM[5][3] = {{1,0,1},
 
 
 
-boolean bitcharN[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharN[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,1,1},
                           {1,1,1},
                           {1,0,1}};
 
-boolean bitcharO[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharO[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
 
-boolean bitcharP[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharP[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,1,1},
                           {1,0,0},
                           {1,0,0}};
 
-boolean bitcharQ[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharQ[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,1,1},
                           {0,0,1},
                           {0,0,1}};
 
 
-boolean bitcharR[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharR[5][3] = {{1,1,1},
                           {1,0,1},
                           {1,1,0},
                           {1,0,1},
                           {1,0,1}};
 
 
-boolean bitcharS[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharS[5][3] = {{1,1,1},
                           {1,0,0},
                           {1,1,1},
                           {0,0,1},
                           {1,1,1}};
 
 
-boolean bitcharT[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharT[5][3] = {{1,1,1},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0}};
 
-boolean bitcharU[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharU[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
 
 
-boolean bitcharV[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharV[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {0,1,0}};
 
 
-boolean bitcharW[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharW[5][3] = {{1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1},
                           {1,0,1}};
 
-boolean bitcharX[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharX[5][3] = {{1,0,1},
                           {1,0,1},
                           {0,1,0},
                           {1,0,1},
                           {1,0,1}};
 
 
-boolean bitcharY[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharY[5][3] = {{1,0,1},
                           {1,0,1},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0}};
 
 
-boolean bitcharZ[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharZ[5][3] = {{1,1,1},
                           {0,0,1},
                           {0,1,0},
                           {1,0,0},
                           {1,1,1}};
 
-boolean bitcharSPACE[5][3] = {{0,0,0},
+const boolean MatrixDisplay::bitcharSPACE[5][3] = {{0,0,0},
                           {0,0,0},
                           {0,0,0},
                           {0,0,0},
                           {0,0,0}};
 
 
-void matrixDisplaySetup(){
+
+
+void MatrixDisplay::matrixDisplaySetup(){
 
   pinMode(OE_PIN, OUTPUT);
   digitalWrite(OE_PIN, HIGH);
@@ -317,12 +267,10 @@ void matrixDisplaySetup(){
   }
   //yield();
 
-
-
 }
 
 
-void getPDMLocationForCoords(uint8_t x, uint8_t y, struct PDMLocation *outvar){
+void MatrixDisplay::getPDMLocationForCoords(uint8_t x, uint8_t y, struct PDMLocation *outvar){
   uint8_t localx = 0;
   uint8_t localy = 0;
   if(x<4){
@@ -346,7 +294,7 @@ void getPDMLocationForCoords(uint8_t x, uint8_t y, struct PDMLocation *outvar){
   outvar->servoIndex = ((4*(localy+1)) - (4-(localx+1)))  -1;
 }
 
-boolean transposePixel(uint8_t x,uint8_t y){
+boolean MatrixDisplay::transposePixel(uint8_t x,uint8_t y){
   if( (x>=SCREEN_WIDTH) || (y>=SCREEN_HEIGHT) ){
     //pixel is off the screen so just return false
     return false;
@@ -360,7 +308,7 @@ boolean transposePixel(uint8_t x,uint8_t y){
   }
 }
 
-void test(){
+void MatrixDisplay::test(){
   Serial.println("Starting Test ");
   digitalWrite(OE_PIN, LOW);
   for(int i=0; i<16; i++){
@@ -378,7 +326,7 @@ void test(){
 
 }
 
-void updateDisplay(bool force){
+void MatrixDisplay::updateDisplay(bool force){
   //loop through the controllers and have each one update their quadrant
 
   uint8_t numChanged = 0;
@@ -418,14 +366,14 @@ void updateDisplay(bool force){
   digitalWrite(OE_PIN, HIGH);
 }
 
-void display(){
+void MatrixDisplay::display(){
   updateDisplay(false);
 }
 
 
 
-void displayChar(uint8_t x, uint8_t y, char thechar){
-  boolean (*charmap)[3];
+void MatrixDisplay::displayChar(uint8_t x, uint8_t y, char thechar){
+  const boolean (*charmap)[3];
 
   if( thechar == 48 ){ //0
     charmap = bitchar0;
@@ -587,7 +535,7 @@ void displayChar(uint8_t x, uint8_t y, char thechar){
   }
 }
 
-void displayString(uint8_t x, uint8_t y, String theString){
+void MatrixDisplay::displayString(uint8_t x, uint8_t y, String theString){
   uint8_t xOffset = 0;
   Serial.print("About to print string: "+theString);
   Serial.print("length is: ");
@@ -605,13 +553,13 @@ void displayString(uint8_t x, uint8_t y, String theString){
   }
 }
 
-void setPixel(uint8_t x,uint8_t y, uint8_t value){
+void MatrixDisplay::setPixel(uint8_t x,uint8_t y, uint8_t value){
   if( (x<SCREEN_WIDTH) && (y<SCREEN_HEIGHT) ){
     futureScreenMatrix[y][x] = value;
   }
 }
 
-void clearScreen(bool withDisplay){
+void MatrixDisplay::clearScreen(bool withDisplay){
   for(int x=0; x<SCREEN_WIDTH; x++){
     for(int y=0; y<SCREEN_HEIGHT; y++){
       setPixel(x,y,0);
@@ -622,7 +570,7 @@ void clearScreen(bool withDisplay){
   }
 }
 
-void scrollText(String toscroll){
+void MatrixDisplay::scrollText(String toscroll){
   clearScreen(true);
   int spacing = toscroll.length()*CHAR_WIDTH;
   for (int x=(SCREEN_WIDTH); x>(0-(spacing)); x--) {

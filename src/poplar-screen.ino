@@ -1,6 +1,8 @@
 // This #include statement was automatically added by the Particle IDE.
 #include "matrixdisplay.h"
 
+MatrixDisplay md = MatrixDisplay();
+
 int8_t ballLocation[2] = {0,0};
 int8_t ballVector[2] = {1,-1};
 
@@ -57,7 +59,7 @@ boolean moveBall(){
 void drawTheball(){
   for(byte i=0;i<1;i++){
     for(byte t=0;t<1;t++){
-        setPixel(ballLocation[0]+i,ballLocation[1]+t,2);
+        md.setPixel(ballLocation[0]+i,ballLocation[1]+t,2);
     }
   }
 }
@@ -69,23 +71,23 @@ void countDown(int top, int secondsdelay){
     char todisplay[10];
 
     while(top>=0){
-        clearScreen(false);
-        displayString(1, 1, String(top--, DEC));
-        display();
+        md.clearScreen(false);
+        md.displayString(1, 1, String(top--, DEC));
+        md.display();
         delay(secondsdelay*1000);
     }
 }
 
 void displayClock(){
-    displayString(1,1,Time.format(Time.now(), "%I%M"));//"%I:%M%p"
+    md.displayString(1,1,Time.format(Time.now(), "%M"));//"%I:%M%p"
 }
 
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  matrixDisplaySetup();
-  clearScreen(true);
+  md.matrixDisplaySetup();
+  md.clearScreen(true);
   Time.zone(-5.00);
 
 }
@@ -93,14 +95,14 @@ void setup() {
 void loop() {
 
 
-  clearScreen(false);
+  md.clearScreen(false);
 
-  //countDown(700, 1);
-  moveBall2();
-  drawTheball();
+  countDown(700, 3);
+  //moveBall2();
+  //drawTheball();
   //displayClock();
-  display();
-  delay(100);
-  //scrollText("HI");
+  //md.display();
+  delay(1000);
+  //md.scrollText("HI");
   //delay(3000);
 }
