@@ -1,7 +1,17 @@
 // This #include statement was automatically added by the Particle IDE.
 #include "matrixdisplay.h"
 
+#define MODE_INTRO 1
+#define MODE_CLOCK 2
+#define MODE_COUNTDOWN 3
+#define MODE_TEST_PIXELS 4
+#define MODE_BALL 5
+
+int displayMode = MODE_INTRO;
+
+
 MatrixDisplay md = MatrixDisplay();
+
 
 int8_t ballLocation[2] = {0,0};
 int8_t ballVector[2] = {1,-1};
@@ -27,6 +37,7 @@ boolean moveBall2(){
   if(moveY){
     ballLocation[1]+=ballVector[1];
   }
+  return false;
 }
 
 boolean moveBall(){
@@ -46,7 +57,6 @@ boolean moveBall(){
     //hit the bottom wall
     ballLocation[1] = 6;
     ballVector[1] = -1;
-    false;
   }
   if(ballLocation[1]<0){
     //hit the top wall
@@ -68,8 +78,7 @@ void countDown(int top, int secondsdelay){
     if(secondsdelay<1){
         secondsdelay = 1;
     }
-    char todisplay[10];
-
+    
     while(top>=0){
         md.clearScreen(false);
         md.displayString(1, 1, String(top--, DEC));
@@ -80,6 +89,35 @@ void countDown(int top, int secondsdelay){
 
 void displayClock(){
     md.displayString(1,1,Time.format(Time.now(), "%M"));//"%I:%M%p"
+}
+
+/////////////////////////////////////////
+//          CLOUD FUNCTIONS            //
+/////////////////////////////////////////
+
+int setDisplayMode_Intro(String param){
+  displayMode = MODE_INTRO;
+  return 1;
+}
+
+int setDisplayMode_Clock(String timezone){
+  displayMode = MODE_CLOCK;
+  return 1;
+}
+
+int setDisplayMode_Countdown(String timestamp){
+  displayMode = MODE_COUNTDOWN;
+  return 1;
+}
+
+int setDisplayMode_TestPixels(String param){
+  displayMode = MODE_TEST_PIXELS;
+  return 1;
+}
+
+int setDisplayMode_Ball(String param){
+  displayMode = MODE_BALL;
+  return 1;
 }
 
 
@@ -106,3 +144,5 @@ void loop() {
   //md.scrollText("HI");
   //delay(3000);
 }
+
+
