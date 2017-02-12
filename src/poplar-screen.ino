@@ -86,14 +86,14 @@ void drawTheball(){
 
 void countDown(int top, int secondsdelay){
 	if(secondsdelay<1){
-			secondsdelay = 1;
+		secondsdelay = 1;
 	}
 	
 	while(top>=0){
-			md.clearScreen(false);
-			md.displayString(1, 1, String(top--, DEC));
-			md.display();
-			delay(secondsdelay*1000);
+		md.clearScreen(false);
+		md.displayString(1, 1, String(top--, DEC));
+		md.display();
+		delay(secondsdelay*1000);
 	}
 }
 
@@ -110,7 +110,7 @@ void renderClock(){
 void renderIntro(){
 	for(uint8_t x=0; x<16; x++){
 		for(uint8_t y=0; y<8; y++){
-			md.setPixel(x, y, logo[y][x] ? 0 : 2); 
+			md.setPixel(x, y, logo[y][x] ? 2 : 0); 
 		}
 	}
 	md.display();
@@ -125,17 +125,20 @@ void renderCountdown(){
 void renderTest(){
 	moveTestPixelBall();
 	drawTheball();
+	md.display();
 	delay(1500);
 }
 
 void renderBall(){
 	moveBall();
 	drawTheball();
+	md.display();
 	delay(300);
 }
 
 void renderDraw(){
 	//TODO parse out the hex number and convert it into set pixel calls
+	md.display();
 	delay(1000);
 }
 
