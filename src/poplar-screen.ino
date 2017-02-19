@@ -8,6 +8,11 @@
 #define MODE_BALL 5
 #define MODE_DRAW 6
 
+#define SECONDS_PER_MINUTE 60
+#define SECONDS_PER_HOUR 3600
+#define SECONDS_PER_DAY 86400
+
+
 const boolean logo[8][16] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
@@ -21,6 +26,7 @@ const boolean logo[8][16] = {
 
 int displayMode = MODE_INTRO;
 MatrixDisplay md = MatrixDisplay();
+int countdownGoal = 0;
 
 
 int8_t ballLocation[2] = {0,0};
@@ -84,19 +90,6 @@ void drawTheball(){
 	}
 }
 
-void countDown(int top, int secondsdelay){
-	if(secondsdelay<1){
-		secondsdelay = 1;
-	}
-	
-	while(top>=0){
-		md.clearScreen(false);
-		md.displayString(1, 1, String(top--, DEC));
-		md.display();
-		delay(secondsdelay*1000);
-	}
-}
-
 //////////////////////////////////////////
 //         Mode Render Functions        //
 //////////////////////////////////////////
@@ -118,8 +111,23 @@ void renderIntro(){
 }
 
 void renderCountdown(){
-	//TODO: reimplement this in a way that counts down to the timestamp
-	countDown(20,1);
+	int remainingSeconds = countdownGoal - Time.now();
+	if(remainingSeconds < 0){
+		remainingSeconds = 0;
+	}
+	int toPrint = remainingSeconds;
+	if( (remainingSeconds / SECONDS_PER_DAY) > 0){
+		toPrint = (remainingSeconds / SECONDS_PER_DAY);
+	}
+	else if( (remainingSeconds / SECONDS_PER_HOUR) > 0){
+		toPrint = (remainingSeconds / SECONDS_PER_HOUR);
+	}
+	else if( (remainingSeconds / SECONDS_PER_MINUTE) > 0){
+		toPrint = (remainingSeconds / SECONDS_PER_MINUTE);
+	}
+	md.displayString(1, 1,  String(toPrint, DEC));
+	md.display();
+	delay(250);
 }
 
 void renderTest(){
@@ -157,6 +165,7 @@ int setDisplayMode_Clock(String timezone){
 }
 
 int setDisplayMode_Countdown(String timestamp){
+	countdownGoal = timestamp.toInt();
 	displayMode = MODE_COUNTDOWN;
 	return 1;
 }
