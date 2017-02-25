@@ -34,7 +34,7 @@ int8_t ballVector[2] = {1,-1};
 
 boolean moveTestPixelBall(){
 	bool moveY = false;
-	if(ballLocation[0]>11){
+	if(ballLocation[0]>15){
 		ballVector[0] = -1;
 		moveY=true;
 	}
@@ -59,9 +59,9 @@ boolean moveTestPixelBall(){
 boolean moveBall(){
 	ballLocation[0] = ballLocation[0] + ballVector[0];
 	ballLocation[1] = ballLocation[1] + ballVector[1];
-	if(ballLocation[0]>11){
+	if(ballLocation[0]>15){
 		//hit the right wall
-		ballLocation[0] = 11;
+		ballLocation[0] = 14;
 		ballVector[0] = -1;
 	}
 	if(ballLocation[0]<0){
@@ -95,7 +95,8 @@ void drawTheball(){
 //////////////////////////////////////////
 
 void renderClock(){
-	md.displayString(1,1,Time.format(Time.now(), "%M"));//"%I:%M%p"
+	Log.info(Time.format(Time.now(), "%l %M"));
+	md.displayString(0,1, Time.format(Time.now(), "%l%M"));
 	md.display();
 	delay(2000);
 }
@@ -134,7 +135,7 @@ void renderTest(){
 	moveTestPixelBall();
 	drawTheball();
 	md.display();
-	delay(1500);
+	delay(500);
 }
 
 void renderBall(){
@@ -200,7 +201,7 @@ void setup() {
 	Particle.function("countmode", setDisplayMode_Countdown);
 	Particle.function("testmode", setDisplayMode_TestPixels);
 	Particle.function("ballmode", setDisplayMode_Ball);
-	Particle.function("drawmode", setDisplayMode_Draw);
+	//Particle.function("drawmode", setDisplayMode_Draw);
 }
 
 void loop() {

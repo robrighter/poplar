@@ -282,11 +282,11 @@ void MatrixDisplay::getPDMLocationForCoords(uint8_t x, uint8_t y, struct PDMLoca
     localx = x-4;
   }
   else if(x<12){
-    outvar->driverIndex = (y<4)?4:5;;//(y<4)?5:4;//not going to have the 5 hooked up for now
+    outvar->driverIndex = (y<4)?4:5;//(y<4)?5:4;//not going to have the 5 hooked up for now
     localx = x-8;
   }
   else{//x<16
-    outvar->driverIndex = IGNORE_DRIVER; //not going to have 5 hooked up for now
+    outvar->driverIndex = (y<4)?7:6;//IGNORE_DRIVER; //not going to have 5 hooked up for now
     localx = x-12;
   }
   localy = (y<4)?y:y-4;
