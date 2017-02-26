@@ -95,8 +95,7 @@ void drawTheball(){
 //////////////////////////////////////////
 
 void renderClock(){
-	Log.info(Time.format(Time.now(), "%l %M"));
-	md.displayString(0,1, Time.format(Time.now(), "%l%M"));
+	md.displayString(1,1, Time.format(Time.now(), "%H%M"));
 	md.display();
 	delay(2000);
 }
