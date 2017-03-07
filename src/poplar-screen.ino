@@ -96,7 +96,7 @@ void drawTheball(){
 
 void renderClock(){
 	md.displayString(1,1, Time.format(Time.now(), "%H%M"));
-	md.display();
+	md.display(true);
 	delay(2000);
 }
 
@@ -106,7 +106,7 @@ void renderIntro(){
 			md.setPixel(x, y, logo[y][x] ? 2 : 0); 
 		}
 	}
-	md.display();
+	md.display(true);
 	delay(3000);
 }
 
@@ -126,7 +126,7 @@ void renderCountdown(){
 		toPrint = (remainingSeconds / SECONDS_PER_MINUTE);
 	}
 	md.displayString(1, 1,  String(toPrint, DEC));
-	md.display();
+	md.display(true);
 	delay(250);
 }
 
@@ -134,7 +134,7 @@ void renderTest(){
 	moveTestPixelBall();
 	drawTheball();
 	md.display();
-	delay(500);
+	delay(200);
 }
 
 void renderBall(){

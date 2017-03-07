@@ -2,90 +2,118 @@
 
 MatrixDisplay::MatrixDisplay(){}
 
-const boolean MatrixDisplay::bitchar0[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar0[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
 
-const boolean MatrixDisplay::bitchar1[5][3] = {{0,1,0},
+const boolean MatrixDisplay::bitchar1[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{0,1,0},
+                          {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0}};
 
-const boolean MatrixDisplay::bitchar2[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar2[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {0,0,1},
                           {1,1,1},
                           {1,0,0},
+                          {1,0,0},
                           {1,1,1}};
 
-const boolean MatrixDisplay::bitchar3[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar3[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {0,0,1},
                           {1,1,1},
                           {0,0,1},
+                          {0,0,1},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitchar4[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitchar4[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
+                          {1,0,1},
                           {1,0,1},
                           {1,1,1},
                           {0,0,1},
                           {0,0,1}};
 
-const boolean MatrixDisplay::bitchar5[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar5[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {1,0,0},
                           {1,1,1},
                           {0,0,1},
+                          {0,0,1},
                           {1,1,1}};
 
-const boolean MatrixDisplay::bitchar6[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar6[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {1,0,0},
                           {1,1,1},
                           {1,0,1},
+                          {1,0,1},
                           {1,1,1}};
 
-const boolean MatrixDisplay::bitchar7[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitchar7[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {0,0,1},
+                          {0,0,1},
+                          {0,1,0},
+                          {0,1,0},
+                          {0,1,0}};
+
+const boolean MatrixDisplay::bitchar8[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {1,0,1},
+                          {1,1,1},
+                          {1,0,1},
+                          {1,0,1},
+                          {1,1,1}};
+
+const boolean MatrixDisplay::bitchar9[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {1,0,1},
+                          {1,1,1},
                           {0,0,1},
                           {0,0,1},
                           {0,0,1}};
 
-const boolean MatrixDisplay::bitchar8[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharA[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{0,1,0},
                           {1,0,1},
                           {1,1,1},
                           {1,0,1},
-                          {1,1,1}};
-
-const boolean MatrixDisplay::bitchar9[5][3] = {{1,1,1},
-                          {1,0,1},
-                          {1,1,1},
-                          {0,0,1},
-                          {0,0,1}};
-
-const boolean MatrixDisplay::bitcharA[5][3] = {{0,1,0},
-                          {1,0,1},
-                          {1,1,1},
                           {1,0,1},
                           {1,0,1}};
 
 
 
-const boolean MatrixDisplay::bitcharB[5][3] = {{1,1,0},
+const boolean MatrixDisplay::bitcharB[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,0},
                           {1,0,1},
                           {1,1,1},
                           {1,0,1},
+                          {1,0,1},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitcharC[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharC[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {1,0,0},
                           {1,0,0},
                           {1,0,0},
                           {1,0,0},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitcharD[5][3] = {{1,1,0},
+const boolean MatrixDisplay::bitcharD[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,0},
+                          {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
@@ -93,43 +121,55 @@ const boolean MatrixDisplay::bitcharD[5][3] = {{1,1,0},
 
 
 
-const boolean MatrixDisplay::bitcharE[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharE[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {1,0,0},
                           {1,1,0},
+                          {1,0,0},
                           {1,0,0},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitcharF[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharF[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {1,0,0},
                           {1,1,1},
+                          {1,0,0},
                           {1,0,0},
                           {1,0,0}};
 
 
-const boolean MatrixDisplay::bitcharG[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharG[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {1,0,0},
                           {1,0,0},
                           {1,1,1},
                           {1,0,1},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitcharH[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharH[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
                           {1,0,1},
                           {1,1,1},
+                          {1,0,1},
                           {1,0,1},
                           {1,0,1}};
 
 
 
-const boolean MatrixDisplay::bitcharI[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharI[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitcharJ[5][3] = {{0,0,1},
+const boolean MatrixDisplay::bitcharJ[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{0,0,1},
+                          {0,0,1},
                           {0,0,1},
                           {0,0,1},
                           {1,0,1},
@@ -137,14 +177,18 @@ const boolean MatrixDisplay::bitcharJ[5][3] = {{0,0,1},
 
 
 
-const boolean MatrixDisplay::bitcharK[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharK[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
+                          {1,0,1},
                           {1,1,0},
                           {1,1,0},
                           {1,0,1},
                           {1,0,1}};
 
 
-const boolean MatrixDisplay::bitcharL[5][3] = {{1,0,0},
+const boolean MatrixDisplay::bitcharL[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,0},
+                          {1,0,0},
                           {1,0,0},
                           {1,0,0},
                           {1,0,0},
@@ -152,7 +196,9 @@ const boolean MatrixDisplay::bitcharL[5][3] = {{1,0,0},
 
 
 
-const boolean MatrixDisplay::bitcharM[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharM[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
+                          {1,1,1},
                           {1,1,1},
                           {1,0,1},
                           {1,0,1},
@@ -160,92 +206,120 @@ const boolean MatrixDisplay::bitcharM[5][3] = {{1,0,1},
 
 
 
-const boolean MatrixDisplay::bitcharN[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharN[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
                           {1,0,1},
                           {1,1,1},
                           {1,1,1},
+                          {1,0,1},
                           {1,0,1}};
 
-const boolean MatrixDisplay::bitcharO[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharO[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
 
-const boolean MatrixDisplay::bitcharP[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharP[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {1,0,1},
                           {1,1,1},
+                          {1,0,0},
                           {1,0,0},
                           {1,0,0}};
 
-const boolean MatrixDisplay::bitcharQ[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharQ[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {1,0,1},
+                          {1,0,1},
                           {1,0,1},
                           {1,1,1},
-                          {0,0,1},
                           {0,0,1}};
 
 
-const boolean MatrixDisplay::bitcharR[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharR[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {1,0,1},
                           {1,1,0},
                           {1,0,1},
+                          {1,0,1},
                           {1,0,1}};
 
 
-const boolean MatrixDisplay::bitcharS[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharS[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {1,0,0},
                           {1,1,1},
+                          {0,0,1},
                           {0,0,1},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitcharT[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharT[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
+                          {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0}};
 
-const boolean MatrixDisplay::bitcharU[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharU[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
+                          {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1}};
 
 
-const boolean MatrixDisplay::bitcharV[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharV[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
+                          {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {0,1,0}};
 
 
-const boolean MatrixDisplay::bitcharW[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharW[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
                           {1,0,1},
                           {1,0,1},
                           {1,1,1},
+                          {1,1,1},
                           {1,0,1}};
 
-const boolean MatrixDisplay::bitcharX[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharX[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
                           {1,0,1},
                           {0,1,0},
                           {1,0,1},
+                          {1,0,1},
                           {1,0,1}};
 
 
-const boolean MatrixDisplay::bitcharY[5][3] = {{1,0,1},
+const boolean MatrixDisplay::bitcharY[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,0,1},
+                          {1,0,1},
                           {1,0,1},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0}};
 
 
-const boolean MatrixDisplay::bitcharZ[5][3] = {{1,1,1},
+const boolean MatrixDisplay::bitcharZ[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{1,1,1},
                           {0,0,1},
+                          {0,1,0},
                           {0,1,0},
                           {1,0,0},
                           {1,1,1}};
 
-const boolean MatrixDisplay::bitcharSPACE[5][3] = {{0,0,0},
+const boolean MatrixDisplay::bitcharSPACE[FONT_HEIGHT][FONT_WIDTH] = 
+                         {{0,0,0},
+                          {0,0,0},
                           {0,0,0},
                           {0,0,0},
                           {0,0,0},
@@ -327,6 +401,10 @@ void MatrixDisplay::test(){
 }
 
 void MatrixDisplay::updateDisplay(bool force){
+  MatrixDisplay::updateDisplay(force, false);
+}
+
+void MatrixDisplay::updateDisplay(bool force, bool flutter){
   //loop through the controllers and have each one update their quadrant
 
   uint8_t numChanged = 0;
@@ -349,6 +427,9 @@ void MatrixDisplay::updateDisplay(bool force){
         if(outvar.driverIndex != IGNORE_DRIVER){
           digitalWrite(OE_PIN, LOW);
           driver[outvar.driverIndex].setPWM(outvar.servoIndex, 0, displayValue);
+          if(flutter){
+            delay(100);
+          }
           numChanged++;
           if((numChanged % 10) == 0){
               //after you update 10 wait a bit so we dont burn out the controllers
@@ -373,11 +454,15 @@ void MatrixDisplay::updateDisplay(bool force){
 }
 
 void MatrixDisplay::display(){
-  updateDisplay(false);
+  updateDisplay(false, false);
+}
+
+void MatrixDisplay::display(bool flutter){
+  updateDisplay(false, flutter);
 }
 
 void MatrixDisplay::displayChar(uint8_t x, uint8_t y, char thechar){
-  const boolean (*charmap)[3];
+  const boolean (*charmap)[FONT_WIDTH];
 
   if( thechar == 48 ){ //0
     charmap = bitchar0;
@@ -532,8 +617,8 @@ void MatrixDisplay::displayChar(uint8_t x, uint8_t y, char thechar){
   }
 
 
-  for(int cy=0; cy<5; cy++){
-    for(int cx=0; cx<3; cx++){
+  for(int cy=0; cy<FONT_HEIGHT; cy++){
+    for(int cx=0; cx<FONT_WIDTH; cx++){
       setPixel(x+cx,y+cy, charmap[cy][cx] ? 2 : 0);
     }
   }

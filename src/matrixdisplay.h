@@ -8,6 +8,9 @@
 
 #define CHAR_WIDTH 14
 
+#define FONT_HEIGHT 6
+#define FONT_WIDTH 3
+
 #define SERVOMIN  172// this is the 'minimum' pulse length count (out of 4096)
 #define SERVOMAX 410 // this is the 'maximum' pulse length count (out of 4096)
 #define SERVOMID 291
@@ -27,6 +30,7 @@ class MatrixDisplay {
   public:
     MatrixDisplay();
     void display();
+    void display(bool flutter);
     void setPixel(uint8_t x, uint8_t y, uint8_t value);
     void scrollText(String toscroll);
     void displayChar(uint8_t x, uint8_t y, char todisplay);
@@ -39,6 +43,7 @@ class MatrixDisplay {
     void getPDMLocationForCoords(uint8_t x, uint8_t y, struct PDMLocation *outvar);
     boolean transposePixel(uint8_t x,uint8_t y);
     void updateDisplay(bool force);
+    void updateDisplay(bool force, bool flutter);
 
     Adafruit_PWMServoDriver driver[NUMBER_OF_DRIVERS] =  {
       Adafruit_PWMServoDriver(0x40),
@@ -75,43 +80,43 @@ class MatrixDisplay {
     };
 
     //characters
-    static const boolean bitchar0[5][3];
-    static const boolean bitchar1[5][3];
-    static const boolean bitchar2[5][3];
-    static const boolean bitchar3[5][3];
-    static const boolean bitchar4[5][3];
-    static const boolean bitchar5[5][3];
-    static const boolean bitchar6[5][3];
-    static const boolean bitchar7[5][3];
-    static const boolean bitchar8[5][3];
-    static const boolean bitchar9[5][3];
-    static const boolean bitcharA[5][3];
-    static const boolean bitcharB[5][3];
-    static const boolean bitcharC[5][3];
-    static const boolean bitcharD[5][3];
-    static const boolean bitcharE[5][3];
-    static const boolean bitcharF[5][3];
-    static const boolean bitcharG[5][3];
-    static const boolean bitcharH[5][3];
-    static const boolean bitcharI[5][3];
-    static const boolean bitcharJ[5][3];
-    static const boolean bitcharK[5][3];
-    static const boolean bitcharL[5][3];
-    static const boolean bitcharM[5][3];
-    static const boolean bitcharN[5][3];
-    static const boolean bitcharO[5][3];
-    static const boolean bitcharP[5][3];
-    static const boolean bitcharQ[5][3];
-    static const boolean bitcharR[5][3];
-    static const boolean bitcharS[5][3];
-    static const boolean bitcharT[5][3];
-    static const boolean bitcharU[5][3];
-    static const boolean bitcharV[5][3];
-    static const boolean bitcharW[5][3];
-    static const boolean bitcharX[5][3];
-    static const boolean bitcharY[5][3];
-    static const boolean bitcharZ[5][3];
-    static const boolean bitcharSPACE[5][3];
+    static const boolean bitchar0[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar1[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar2[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar3[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar4[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar5[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar6[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar7[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar8[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitchar9[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharA[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharB[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharC[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharD[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharE[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharF[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharG[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharH[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharI[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharJ[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharK[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharL[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharM[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharN[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharO[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharP[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharQ[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharR[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharS[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharT[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharU[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharV[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharW[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharX[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharY[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharZ[FONT_HEIGHT][FONT_WIDTH];
+    static const boolean bitcharSPACE[FONT_HEIGHT][FONT_WIDTH];
 
 
 };
