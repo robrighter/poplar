@@ -38,8 +38,10 @@ class MatrixDisplay {
     void test();
     void clearScreen(bool withDisplay);
     void displayString(uint8_t x, uint8_t y, String theString);
+    void centerString(String theString);
 
   private:
+    uint8_t calculatePixelWidth(String theString);
     void getPDMLocationForCoords(uint8_t x, uint8_t y, struct PDMLocation *outvar);
     boolean transposePixel(uint8_t x,uint8_t y);
     void updateDisplay(bool force);

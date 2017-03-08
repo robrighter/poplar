@@ -95,7 +95,11 @@ void drawTheball(){
 //////////////////////////////////////////
 
 void renderClock(){
-	md.displayString(1,1, Time.format(Time.now(), "%H%M"));
+	String s = String(Time.format(Time.now(), "%I%M"));
+	if(s.charAt(0) == '0'){
+		s = s.substring(1);
+	}
+	md.centerString(s);
 	md.display(true);
 	delay(2000);
 }

@@ -624,6 +624,17 @@ void MatrixDisplay::displayChar(uint8_t x, uint8_t y, char thechar){
   }
 }
 
+uint8_t MatrixDisplay::calculatePixelWidth(String theString){
+  uint8_t xOffset = 0;
+  for(uint8_t i=0; i<theString.length(); i++){
+    xOffset+= ((theString.charAt(i)=='1')?3:4);
+  }
+  if(xOffset > 0){
+    xOffset--;
+  }
+  return xOffset;
+}
+
 void MatrixDisplay::displayString(uint8_t x, uint8_t y, String theString){
   uint8_t xOffset = 0;
   for(uint8_t i=0; i<theString.length(); i++){
@@ -631,6 +642,18 @@ void MatrixDisplay::displayString(uint8_t x, uint8_t y, String theString){
     xOffset+= ((theString.charAt(i)=='1')?3:4);
   }
 }
+
+void MatrixDisplay::centerString(String theString){
+  uint8_t x = 0;
+  uint8_t y = 1;
+  uint8_t stringWidth = calculatePixelWidth(theString);
+  if(stringWidth < SCREEN_WIDTH){
+    //calculate the center
+    x = (SCREEN_WIDTH - stringWidth)/2;
+  }
+  displayString(x, y, theString);
+}
+
 
 void MatrixDisplay::setPixel(uint8_t x,uint8_t y, uint8_t value){
   if( (x<SCREEN_WIDTH) && (y<SCREEN_HEIGHT) ){
