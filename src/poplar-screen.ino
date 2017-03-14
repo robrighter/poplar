@@ -129,8 +129,8 @@ void renderCountdown(){
 	else if( (remainingSeconds / SECONDS_PER_MINUTE) > 0){
 		toPrint = (remainingSeconds / SECONDS_PER_MINUTE);
 	}
-	md.displayString(1, 1,  String(toPrint, DEC));
-	md.display(true);
+	md.centerString(String(toPrint, DEC));
+	md.display(false); //dont flutter
 	delay(250);
 }
 
