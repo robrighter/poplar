@@ -138,14 +138,14 @@ void renderTest(){
 	moveTestPixelBall();
 	drawTheball();
 	md.display();
-	delay(200);
+	delay(150);
 }
 
 void renderBall(){
 	moveBall();
 	drawTheball();
 	md.display();
-	delay(300);
+	delay(250);
 }
 
 void renderDraw(){
@@ -194,17 +194,17 @@ int setDisplayMode_Draw(String param){
 void setup() {
 	// put your setup code here, to run once:
 	Serial.begin(9600);
-	md.matrixDisplaySetup();
-	md.clearScreen(true);
-	Time.zone(-5.00);
 	//register the functions
-	Particle.variable("displaymode", displayMode);
 	Particle.function("intromode", setDisplayMode_Intro);
 	Particle.function("clockmode", setDisplayMode_Clock);
 	Particle.function("countmode", setDisplayMode_Countdown);
 	Particle.function("testmode", setDisplayMode_TestPixels);
 	Particle.function("ballmode", setDisplayMode_Ball);
 	//Particle.function("drawmode", setDisplayMode_Draw);
+	Particle.variable("displaymode", displayMode);
+	md.matrixDisplaySetup();
+	md.clearScreen(true);
+	Time.zone(-4.00);
 }
 
 void loop() {

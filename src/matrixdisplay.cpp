@@ -11,7 +11,7 @@ const boolean MatrixDisplay::bitchar0[FONT_HEIGHT][FONT_WIDTH] =
                           {1,1,1}};
 
 const boolean MatrixDisplay::bitchar1[FONT_HEIGHT][FONT_WIDTH] = 
-                         {{0,1,0},
+                         {{1,1,0},
                           {0,1,0},
                           {0,1,0},
                           {0,1,0},
@@ -38,8 +38,8 @@ const boolean MatrixDisplay::bitchar3[FONT_HEIGHT][FONT_WIDTH] =
 const boolean MatrixDisplay::bitchar4[FONT_HEIGHT][FONT_WIDTH] = 
                          {{1,0,1},
                           {1,0,1},
-                          {1,0,1},
                           {1,1,1},
+                          {0,0,1},
                           {0,0,1},
                           {0,0,1}};
 
@@ -63,9 +63,9 @@ const boolean MatrixDisplay::bitchar7[FONT_HEIGHT][FONT_WIDTH] =
                          {{1,1,1},
                           {0,0,1},
                           {0,0,1},
-                          {0,1,0},
-                          {0,1,0},
-                          {0,1,0}};
+                          {0,0,1},
+                          {0,0,1},
+                          {0,0,1}};
 
 const boolean MatrixDisplay::bitchar8[FONT_HEIGHT][FONT_WIDTH] = 
                          {{1,1,1},
@@ -326,10 +326,17 @@ const boolean MatrixDisplay::bitcharSPACE[FONT_HEIGHT][FONT_WIDTH] =
                           {0,0,0}};
 
 
-
-
 void MatrixDisplay::matrixDisplaySetup(){
 
+  driver[0] = Adafruit_PWMServoDriver(0x40);
+  driver[1] = Adafruit_PWMServoDriver(0x41);
+  driver[2] = Adafruit_PWMServoDriver(0x42);
+  driver[3] = Adafruit_PWMServoDriver(0x43);
+  driver[4] = Adafruit_PWMServoDriver(0x44);
+  driver[5] = Adafruit_PWMServoDriver(0x45);
+  driver[6] = Adafruit_PWMServoDriver(0x46);
+  driver[7] = Adafruit_PWMServoDriver(0x47);
+  
   pinMode(OE_PIN, OUTPUT);
   digitalWrite(OE_PIN, HIGH);
 
@@ -428,10 +435,10 @@ void MatrixDisplay::updateDisplay(bool force, bool flutter){
           digitalWrite(OE_PIN, LOW);
           driver[outvar.driverIndex].setPWM(outvar.servoIndex, 0, displayValue);
           if(flutter){
-            delay(100);
+            delay(120);
           }
           numChanged++;
-          if((numChanged % 10) == 0){
+          if((numChanged % 12) == 0){
               //after you update 10 wait a bit so we dont burn out the controllers
               delay(BATCH_DELAY_MILLIS);
           }

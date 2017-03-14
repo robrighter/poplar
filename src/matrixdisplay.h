@@ -47,16 +47,7 @@ class MatrixDisplay {
     void updateDisplay(bool force);
     void updateDisplay(bool force, bool flutter);
 
-    Adafruit_PWMServoDriver driver[NUMBER_OF_DRIVERS] =  {
-      Adafruit_PWMServoDriver(0x40),
-      Adafruit_PWMServoDriver(0x41),
-      Adafruit_PWMServoDriver(0x42),
-      Adafruit_PWMServoDriver(0x43),
-      Adafruit_PWMServoDriver(0x44),
-      Adafruit_PWMServoDriver(0x45),
-      Adafruit_PWMServoDriver(0x46),
-      Adafruit_PWMServoDriver(0x47)
-    };
+    Adafruit_PWMServoDriver driver[NUMBER_OF_DRIVERS];
 
     uint8_t existingScreenMatrix[8][16] = {
       {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
