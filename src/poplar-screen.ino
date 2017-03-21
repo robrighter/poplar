@@ -7,6 +7,7 @@
 #define MODE_TEST_PIXELS 4
 #define MODE_BALL 5
 #define MODE_DRAW 6
+#define MODE_ANALOG_CLOCK 7
 
 #define SECONDS_PER_MINUTE 60
 #define SECONDS_PER_HOUR 3600
@@ -101,7 +102,29 @@ void renderClock(){
 	}
 	md.centerString(s);
 	md.display(true);
-	delay(2000);
+	delay(10000);
+}
+
+void renderAnalogClock(){
+	uint8_t hours = Time.hourFormat12(Time.now());
+	uint8_t minutes = Time.minute(Time.now());
+	uint8_t hourOffset = 2;
+	uint8_t minutesOffset = 3;
+	uint8_t minutesYOffset = 2;
+	uint8_t i = 0;
+	//draw the hours
+	for(i=0; i<hours; i++){
+		md.setPixel(hourOffset+i, 0, 2);	
+	}
+	//draw the minutes
+	for(i=0; i<=minutes; i++){
+		int x = i%10;
+		int y = i/10;
+		md.setPixel(minutesOffset+x, minutesYOffset+y, 2);	
+	}
+	
+	md.display(true);
+	delay(10000);
 }
 
 void renderIntro(){
@@ -163,8 +186,13 @@ int setDisplayMode_Intro(String param){
 	return 1;
 }
 
-int setDisplayMode_Clock(String timezone){
-	displayMode = MODE_CLOCK;
+int setDisplayMode_Clock(String type){
+	if(type.compareTo(String("analog")) == 0){
+		displayMode = MODE_ANALOG_CLOCK;
+	}
+	else{
+		displayMode = MODE_CLOCK;
+	}
 	return 1;
 }
 
@@ -212,6 +240,9 @@ void loop() {
 	switch(displayMode){
 		case MODE_INTRO:
 			renderIntro();
+			break;
+		case MODE_ANALOG_CLOCK:
+			renderAnalogClock();
 			break;
 		case MODE_CLOCK:
 			renderClock();
