@@ -108,7 +108,7 @@ void renderClock(){
 void renderAnalogClock(){
 	uint8_t hours = Time.hourFormat12(Time.now());
 	uint8_t minutes = Time.minute(Time.now());
-	uint8_t hourOffset = 2;
+	uint8_t hourOffset = (16-hours)/2;
 	uint8_t minutesOffset = 3;
 	uint8_t minutesYOffset = 2;
 	uint8_t i = 0;
