@@ -28,6 +28,7 @@ const boolean logo[8][16] = {
 int displayMode = MODE_INTRO;
 MatrixDisplay md = MatrixDisplay();
 int countdownGoal = 0;
+int currentDrawFrame = 0;
 
 
 int8_t ballLocation[2] = {0,0};
@@ -172,9 +173,12 @@ void renderBall(){
 }
 
 void renderDraw(){
-	//TODO parse out the hex number and convert it into set pixel calls
-	md.display();
-	delay(1000);
+	md.renderFrame(currentDrawFrame);
+	currentDrawFrame++;
+	if(currentDrawFrame >= NUMBER_OF_IMAGE_FRAMES){
+		currentDrawFrame = 0;
+	}
+	//display and delay are build into the render frame function
 }
 
 /////////////////////////////////////////
@@ -213,8 +217,14 @@ int setDisplayMode_Ball(String param){
 }
 
 int setDisplayMode_Draw(String param){
-	//todo parse out the hex and store it
 	displayMode = MODE_DRAW;
+	return 1;
+}
+
+int setDisplayFrame(String param){
+	//parse out the details of the frame:
+	//for example the following sets frame 2 to be an active frame for 5 seconds
+   //255255255255255255255255255255255255255255255255|2|1|5
 	return 1;
 }
 
@@ -228,7 +238,8 @@ void setup() {
 	Particle.function("countmode", setDisplayMode_Countdown);
 	Particle.function("testmode", setDisplayMode_TestPixels);
 	Particle.function("ballmode", setDisplayMode_Ball);
-	//Particle.function("drawmode", setDisplayMode_Draw);
+	Particle.function("drawmode", setDisplayMode_Draw);
+	Particle.function("setframe", setDisplayFrame);
 	Particle.variable("displaymode", displayMode);
 	md.matrixDisplaySetup();
 	md.clearScreen(true);

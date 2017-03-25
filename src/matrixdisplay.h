@@ -2,6 +2,7 @@
 #define MATRIXDISPLAY_H
 #include "application.h"
 #include <Adafruit_PWMServoDriver.h>
+#include "image.h"
 
 #define SCREEN_WIDTH 16
 #define SCREEN_HEIGHT 8
@@ -15,6 +16,7 @@
 #define SERVOMAX 410 // this is the 'maximum' pulse length count (out of 4096)
 #define SERVOMID 291
 #define NUMBER_OF_DRIVERS 8
+#define NUMBER_OF_IMAGE_FRAMES 20
 
 #define OE_PIN 4
 #define IGNORE_DRIVER 55
@@ -39,6 +41,9 @@ class MatrixDisplay {
     void clearScreen(bool withDisplay);
     void displayString(uint8_t x, uint8_t y, String theString);
     void centerString(String theString);
+    void renderFrame(uint8_t frameIndex);
+    Image imageFrames[NUMBER_OF_IMAGE_FRAMES];
+    
 
   private:
     uint8_t calculatePixelWidth(String theString);

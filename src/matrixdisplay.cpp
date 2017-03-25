@@ -327,6 +327,11 @@ const boolean MatrixDisplay::bitcharSPACE[FONT_HEIGHT][FONT_WIDTH] =
 
 
 void MatrixDisplay::matrixDisplaySetup(){
+  int i =0;
+  for(i=0; i< NUMBER_OF_IMAGE_FRAMES; i++){
+    imageFrames[i] = Image();
+    imageFrames[i].reset();
+  }
 
   driver[0] = Adafruit_PWMServoDriver(0x40);
   driver[1] = Adafruit_PWMServoDriver(0x41);
@@ -340,7 +345,7 @@ void MatrixDisplay::matrixDisplaySetup(){
   pinMode(OE_PIN, OUTPUT);
   digitalWrite(OE_PIN, HIGH);
 
-  for(int i=0;i<NUMBER_OF_DRIVERS; i++){
+  for(i=0;i<NUMBER_OF_DRIVERS; i++){
     driver[i].begin();
     driver[i].setPWMFreq(60); // Analog servos run at ~60 Hz updates
     Serial.println("setting up driver index: ");
@@ -688,4 +693,23 @@ void MatrixDisplay::scrollText(String toscroll){
     display();
     delay(50);
   }
+}
+
+void MatrixDisplay::renderFrame(uint8_t frameIndex){
+  if(frameIndex >= NUMBER_OF_IMAGE_FRAMES){
+    //this index is out of range so just return
+    return;
+  }
+  
+  for(int x=0; x<SCREEN_WIDTH; x++){
+    for(int y=0; y<SCREEN_HEIGHT; y++){
+      if(imageFrames[frameIndex].isActive){
+        setPixel(x, y, imageFrames[frameIndex].readPixel(x,y));  
+      }
+    }
+  }
+  
+  updateDisplay(false);
+  //delay for specified time of at least 1 second
+  delay(imageFrames[frameIndex].seconds > 0 ? imageFrames[frameIndex].seconds : 1);
 }
