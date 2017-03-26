@@ -701,11 +701,14 @@ void MatrixDisplay::renderFrame(uint8_t frameIndex){
     return;
   }
   
+  if(!imageFrames[frameIndex].isActive){
+    //dont render it if it's not active
+    return;
+  }
+  
   for(int x=0; x<SCREEN_WIDTH; x++){
     for(int y=0; y<SCREEN_HEIGHT; y++){
-      if(imageFrames[frameIndex].isActive){
-        setPixel(x, y, imageFrames[frameIndex].readPixel(x,y));  
-      }
+      setPixel(x, y, imageFrames[frameIndex].readPixel(x,y));  
     }
   }
   

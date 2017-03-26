@@ -224,7 +224,24 @@ int setDisplayMode_Draw(String param){
 int setDisplayFrame(String param){
 	//parse out the details of the frame:
 	//for example the following sets frame 2 to be an active frame for 5 seconds
-   //255255255255255255255255255255255255255255255255|2|1|5
+	//255255255255255255255255255255255255255255255255|2|1|5
+   if(param.length() < 53){ //needs to be at least 53 characters in length
+   	return 0;
+   }
+   
+   String imageString = param.substring(0,48);
+   String otherParams = param.substring(49);
+   
+   int endFrame = otherParams.indexOf('|');
+   int endActive = otherParams.indexOf('|', endFrame+1);
+   int frameNumber = otherParams.substring(0,endFrame).toInt();
+   int isActive = otherParams.substring(endFrame+1,endActive).toInt();
+   int numSeconds = otherParams.substring(endActive+1).toInt();
+   
+   md.imageFrames[frameNumber].isActive = (isActive > 0) ? true : false;
+   md.imageFrames[frameNumber].seconds = numSeconds;
+   md.imageFrames[frameNumber].setImageFromString(imageString);
+   
 	return 1;
 }
 

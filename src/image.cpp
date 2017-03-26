@@ -24,6 +24,7 @@ uint8_t Image::readPixel(uint8_t x, uint8_t y){
 }
 
 void Image::setImageFromString(String imageString){
+    Particle.publish("setImageFromString", imageString);
     if(imageString.length() != IMAGE_STRING_LENGTH){
         //if the stringis not the exact length, just return
         return;
@@ -33,7 +34,7 @@ void Image::setImageFromString(String imageString){
     //parse out the bytes
     int imageBytes[16];
     for(i=0; i<16; i++){
-        imageBytes[i] = imageString.substring(i*3,(i*3)+2).toInt();
+        imageBytes[i] = imageString.substring(i*3,(i*3)+3).toInt();
     }
     
     //now translate the bytes into bit strings
