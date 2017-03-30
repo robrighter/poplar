@@ -87,7 +87,11 @@ boolean moveBall(){
 void drawTheball(){
 	for(byte i=0;i<1;i++){
 		for(byte t=0;t<1;t++){
+			//4 pixel ball
 			md.setPixel(ballLocation[0]+i,ballLocation[1]+t,2);
+			md.setPixel(ballLocation[0]+i+1,ballLocation[1]+t,2);
+			md.setPixel(ballLocation[0]+i+1,ballLocation[1]+t+1,2);
+			md.setPixel(ballLocation[0]+i,ballLocation[1]+t+1,2);
 		}
 	}
 }
@@ -168,8 +172,8 @@ void renderTest(){
 void renderBall(){
 	moveBall();
 	drawTheball();
-	md.display();
-	delay(250);
+	md.display(false); //no flutter
+	delay(10);
 }
 
 void renderDraw(){

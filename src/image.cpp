@@ -55,7 +55,7 @@ void Image::setImageFromString(String imageString){
     for(i=0; i<128; i++){
         int y = i/16;
         int x = i%16;
-        setPixel(x, y, bitArray[i]);
+        setPixel(x, y, bitArray[i] ? 2 : 0);
     }
     
 }
