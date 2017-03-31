@@ -32,7 +32,7 @@ void Image::setImageFromString(String imageString){
     int i = 0;
     
     //parse out the bytes
-    int imageBytes[16];
+    uint8_t imageBytes[16];
     for(i=0; i<16; i++){
         imageBytes[i] = imageString.substring(i*3,(i*3)+3).toInt();
     }
@@ -41,14 +41,14 @@ void Image::setImageFromString(String imageString){
     bool bitArray[128];
     int bitCount = 0;
     for(i=0; i<16; i++){
-        bitArray[bitCount++] = (0b11111110 & imageBytes[i]) ? true : false;
-        bitArray[bitCount++] = (0b11111101 & imageBytes[i]) ? true : false;
-        bitArray[bitCount++] = (0b11111011 & imageBytes[i]) ? true : false;
-        bitArray[bitCount++] = (0b11110111 & imageBytes[i]) ? true : false;
-        bitArray[bitCount++] = (0b11101111 & imageBytes[i]) ? true : false;
-        bitArray[bitCount++] = (0b11011111 & imageBytes[i]) ? true : false;
-        bitArray[bitCount++] = (0b10111111 & imageBytes[i]) ? true : false;
-        bitArray[bitCount++] = (0b01111111 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b10000000 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b01000000 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b00100000 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b00010000 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b00001000 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b00000100 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b00000010 & imageBytes[i]) ? true : false;
+        bitArray[bitCount++] = (0b00000001 & imageBytes[i]) ? true : false;
     }
     
     //now write out the screen
