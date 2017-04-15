@@ -714,5 +714,5 @@ void MatrixDisplay::renderFrame(uint8_t frameIndex){
   
   updateDisplay(false);
   //delay for specified time of at least 1 second
-  delay(imageFrames[frameIndex].seconds > 0 ? imageFrames[frameIndex].seconds : 1);
+  delay(imageFrames[frameIndex].seconds > 0 ? (imageFrames[frameIndex].seconds*1000) : 1000);
 }
