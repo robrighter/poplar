@@ -20,7 +20,7 @@
 
 #define OE_PIN 4
 #define IGNORE_DRIVER 55
-#define BATCH_DELAY_MILLIS 200
+#define BATCH_DELAY_MILLIS 450
 
 typedef struct PWMLocation PWMLocation;
 struct PDMLocation {

@@ -440,7 +440,7 @@ void MatrixDisplay::updateDisplay(bool force, bool flutter){
           digitalWrite(OE_PIN, LOW);
           driver[outvar.driverIndex].setPWM(outvar.servoIndex, 0, displayValue);
           if(flutter){
-            delay(120);
+            delay(160);
           }
           numChanged++;
           if((numChanged % 12) == 0){

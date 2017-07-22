@@ -1,5 +1,6 @@
 // This #include statement was automatically added by the Particle IDE.
 #include "matrixdisplay.h"
+#include "conway.h"
 
 #define MODE_INTRO 1
 #define MODE_CLOCK 2
@@ -8,6 +9,7 @@
 #define MODE_BALL 5
 #define MODE_DRAW 6
 #define MODE_ANALOG_CLOCK 7
+#define MODE_CONWAY 8
 
 #define SECONDS_PER_MINUTE 60
 #define SECONDS_PER_HOUR 3600
@@ -27,6 +29,7 @@ const boolean logo[8][16] = {
 
 int displayMode = MODE_INTRO;
 MatrixDisplay md = MatrixDisplay();
+Conway conway = Conway();
 int countdownGoal = 0;
 int currentDrawFrame = 0;
 
@@ -85,15 +88,7 @@ boolean moveBall(){
 }
 
 void drawTheball(){
-	for(byte i=0;i<1;i++){
-		for(byte t=0;t<1;t++){
-			//4 pixel ball
-			md.setPixel(ballLocation[0]+i,ballLocation[1]+t,2);
-			md.setPixel(ballLocation[0]+i+1,ballLocation[1]+t,2);
-			md.setPixel(ballLocation[0]+i+1,ballLocation[1]+t+1,2);
-			md.setPixel(ballLocation[0]+i,ballLocation[1]+t+1,2);
-		}
-	}
+	md.setPixel(ballLocation[0],ballLocation[1],2);
 }
 
 //////////////////////////////////////////
@@ -185,6 +180,19 @@ void renderDraw(){
 	//display and delay are build into the render frame function
 }
 
+void renderConway(){
+	uint8_t x=0;
+   uint8_t y=0;
+	conway.processNextCycle();
+	for(x=0;x<SCREEN_WIDTH;x++){
+		for(y=0;y<SCREEN_HEIGHT;y++){
+			md.setPixel(x,y,conway.getValueAtLocation(x,y)?2:0);
+		}
+	}
+	md.display();
+	delay(2000);
+}
+
 /////////////////////////////////////////
 //          CLOUD FUNCTIONS            //
 /////////////////////////////////////////
@@ -225,6 +233,13 @@ int setDisplayMode_Draw(String param){
 	return 1;
 }
 
+
+int setDisplayMode_Conway(String param){
+	displayMode = MODE_CONWAY;
+	conway.seedTheCanvas();
+	return 1;
+}
+
 int setDisplayFrame(String param){
 	//parse out the details of the frame:
 	//for example the following sets frame 2 to be an active frame for 5 seconds
@@ -260,6 +275,7 @@ void setup() {
 	Particle.function("testmode", setDisplayMode_TestPixels);
 	Particle.function("ballmode", setDisplayMode_Ball);
 	Particle.function("drawmode", setDisplayMode_Draw);
+	Particle.function("conwaymode", setDisplayMode_Conway);
 	Particle.function("setframe", setDisplayFrame);
 	Particle.variable("displaymode", displayMode);
 	md.matrixDisplaySetup();
@@ -290,6 +306,9 @@ void loop() {
 			break;
 		case MODE_DRAW:
 			renderDraw();
+			break;
+		case MODE_CONWAY:
+			renderConway();
 			break;
 	}
 	delay(10);
